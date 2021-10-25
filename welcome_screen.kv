@@ -1,0 +1,73 @@
+#:import Window kivy.core.window.Window
+
+<WelcomeScreen>
+	md_bg_color : 1, 1, 1, 1
+	
+	MDBoxLayout:
+		id : welcome_whatsapp_label
+		size_hint : None, None
+		size : Window.width, dp(50)
+		top : Window.height - dp(50)
+		MDLabel:
+			sizer : int(dp(30))
+			text : "[size={0}]Welcome to WhatsApp[/size]".format(self.sizer)
+			markup : True
+			bold : True
+			color : 0/255, 136/255, 122/255, 1
+			#font_style : "H5"
+			halign : "center"
+			
+			
+	MDBoxLayout:
+		id : welcome_icons_list
+		size_hint : None, None
+		size : Window.width*0.72, Window.width*0.72
+		top : welcome_whatsapp_label.y - dp(50)
+		pos_hint : {"center_x":0.5}
+		canvas:
+			Color:
+				rgba : 1, 1, 1, 1
+			Ellipse:
+				size : self.size
+				pos : self.pos
+				source : "welcome_icons_list.png"
+				
+				
+	MDBoxLayout:
+		size_hint : None, None
+		size : Window.width, dp(100)
+		top : welcome_icons_list.y - dp(80)
+		orientation : "vertical"
+		padding : 20, 0, 20, 0
+		MDLabel:
+			text : "Read our [color=#5abfeb]Privacy Policy[/color]. Tap \"Agree and Continue\" to accept the [color=#5abfeb]Terms of Service[/color]."
+			markup : True
+			font_style : "Subtitle2"
+			color : 0.65, 0.65, 0.65, 1
+			halign : "center"
+		MDRaisedButton:
+			size_hint_x : 0.8
+			text : "AGREE AND CONTINUE"
+			md_bg_color : 32/255, 198/255, 90/255, 1
+			pos_hint : {"center_x":0.5, "center_y":0.5}
+			on_release:
+				root.change_screen()
+			
+	
+	MDBoxLayout:
+		size_hint : None, None
+		size : Window.width, dp(65)
+		y : 0+dp(1)
+		orientation : "vertical"
+		MDLabel:
+			text : "from"
+			color : 0.65, 0.65, 0.65, 1
+			halign : "center"
+			font_style : "Subtitle2"
+			pos_hint : {"center_y":0.5}
+		MDLabel:
+			text : "MASSTH"
+			bold : True
+			color : 32/255, 198/255, 90/255, 1
+			halign : "center"
+			pos_hint : {"center_y":0.5}

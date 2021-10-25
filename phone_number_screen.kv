@@ -1,0 +1,140 @@
+#:import Window kivy.core.window.Window
+
+<PhoneNumberScreen>
+	md_bg_color : 1, 1, 1, 1
+	
+	MDFloatLayout:
+		id : toolbar
+		size_hint : None, None
+		size : Window.width, dp(50)
+		top : Window.height
+		MDLabel:
+			text : "Enter your phone number"
+			bold : True
+			color : 0/255, 136/255, 122/255, 1
+			halign : "center"
+			font_style : "Subtitle1"
+			pos_hint : {"center_y":0.5}
+		MDIconButton:
+			icon : "dots-vertical"
+			right : Window.width
+			pos_hint : {"center_y":0.5}
+			
+	
+	MDBoxLayout:
+		id : whatsapp_send_sms_label
+		size_hint : None, None
+		size : Window.width, dp(60)
+		top : toolbar.y
+		padding : 20, 0, 20, 0
+		canvas:
+			Color:
+				rgba : 1, 1, 1, 1
+			Rectangle:
+				size : self.size
+				pos : self.pos
+		MDLabel:
+			text : "WhatsApp will send an SMS message to verify your phone number.[color=#5abfeb].What\'s my number?[/color]"
+			markup : True
+			halign : "center"
+			font_style : "Subtitle2"
+			pos_hint : {"center_y":0.5}
+			color : 0, 0, 0, 1
+			
+			
+	MDBoxLayout:
+		id : phone_number_container
+		size_hint : None, None
+		size : Window.width*0.8, dp(120)
+		top : whatsapp_send_sms_label.y
+		pos_hint : {"center_x":0.5}
+		orientation : "vertical"
+		spacing : 2
+		canvas:
+			Color:
+				rgba : 1, 1, 1, 1
+			Rectangle:
+				size : self.size
+				pos : self.pos
+		CountryName:
+			id : country_name_container
+			size_hint_x : 0.9
+			pos_hint : {"center_x":0.5, "center_y":0.5}
+			on_release:
+				self.change_name()
+			canvas:
+				Color:
+					rgba : 1, 1, 1, 1
+				Rectangle:
+					size : self.size
+					pos : self.pos
+				Color:
+					rgba : 0/255, 136/255, 122/255, 1
+				Line:
+					points : [self.x, self.y, self.x + (Window.width*0.7), self.y]
+					width : 1
+			MDLabel:
+				id : country_name
+				text : country_name_container.name
+				color : 0, 0, 0, 1
+				halign : "center"
+				pos_hint : {"center_x":0.5, "center_y":0.5}
+			MDIcon:
+				icon : "menu-down"
+				right : Window.width * 0.9
+				pos_hint : {"center_y":0.5}
+		MDFloatLayout:
+			size_hint_x : 0.9
+			pos_hint : {"center_x":0.5, "center_y":0.5}
+			canvas:
+				Color:
+					rgba : 1, 1, 1, 1
+				Rectangle:
+					size : self.size
+					pos : self.pos
+		MDFloatLayout:
+			size_hint_x : 0.9
+			pos_hint : {"center_x":0.5, "center_y":0.5}
+			canvas:
+				Color:
+					rgba : 0, 1, 1, 1
+				Rectangle:
+					size : self.size
+					pos : self.pos
+					
+					
+	MDRaisedButton:
+		text : "NEXT"
+		md_bg_color : 32/255, 198/255, 90/255, 1
+		y : 0 + dp(50)
+		pos_hint :{"center_x":0.5}
+		on_release :
+			root.change_screen()
+			
+			
+			
+<VerifyNumber>:
+	orientation : "vertical"
+	size_hint_y : None
+	height : dp(120)
+	size_hint_x : 1
+	pos_hint : {"center_y":0.5}
+	MDLabel:
+		text : "You entered the phone number:"
+		color : 0, 0, 0, 1
+		font_style : "Subtitle1"
+		pos_hint : {"center_y":0.5}
+		x : 0 + dp(1)
+	MDLabel:
+		text : "+91 6383 590 017"
+		bold : True
+		color : 0, 0, 0, 1
+		font_style : "Subtitle1"
+		pos_hint : {"center_y":0.5}
+		x : 0 + dp(1)
+	MDLabel:
+		text : "Is this OK, or would you like to edit the number"
+		halign : "left"
+		color : 0, 0, 0, 1
+		font_style : "Subtitle1"
+		pos_hint : {"center_y":0.5}

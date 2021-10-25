@@ -1,0 +1,99 @@
+#:import Window kivy.core.window.Window
+#:import dp kivy.metrics.dp
+
+
+<ProfileRegister>
+	md_bg_color : 1, 1, 1, 1
+	
+	MDBoxLayout:
+		id : profile_toolbar
+		size_hint : None, None
+		size : Window.width, dp(50)
+		top : Window.height
+		md_bg_color : 1, 1, 1, 1
+		MDLabel:
+			text : "Profile Info"
+			bold : True
+			color : 0/255, 136/255, 122/255, 1
+			halign : "center"
+			pos_hint : {"center_y":0.5}
+			font_style : "Subtitle1"
+	
+	
+	MDBoxLayout:
+		id : name_provide_label
+		size_hint : None, None
+		size : Window.width, dp(50)
+		top : profile_toolbar.y - dp(10)
+		padding : 20, 0, 20, 0
+		MDLabel:
+			text : "Please provide your name and an optional profile photo"
+			font_style : "Subtitle2"
+			color : 0.5, 0.5, 0.5, 1
+			halign : "center"
+			
+	MDFloatLayout:
+		id : profile_photo_add
+		size_hint : None, None
+		size : Window.width*0.3, Window.width*0.3
+		top : name_provide_label.y - dp(30)
+		pos_hint : {"center_x":0.5}
+		canvas:
+			Color:
+				rgba : 0.9, 0.9, 0.9, 0.6
+			Ellipse:
+				size : self.size
+				pos : self.pos
+		MDIconButton:
+			icon : "camera-plus"
+			size_hint : None, None
+			pos_hint : {"center_x":0.5, "center_y":0.5}
+			user_font_size : dp(45)
+			theme_text_color : "Custom"
+			text_color : 157/255, 170/255, 179/255, 1
+			
+	MDBoxLayout:
+		size_hint : None, None
+		size : Window.width - emoji_btn.size[0] - dp(20), dp(30)
+		top : profile_photo_add.y - dp(50)
+		canvas:
+			Color:
+				rgba : 0/255, 136/255, 122/255, 1
+			Line:
+				points : [self.x+20, self.y, self.width-20, self.y]
+				width : 3
+			
+	TextInput:
+		id : profile_name_add
+		hint_text : "Type your name here"
+		top : profile_photo_add.y - dp(50)
+		size_hint : None, None
+		size : Window.width - emoji_btn.size[0] - dp(40), dp(30)
+		right : Window.width - emoji_btn.width - dp(30)
+		multiline : False
+		font_size : "16sp"
+		halign : "auto"
+		base_direction : "ltr"
+		background_normal : ""
+		cursor_color : 0/255, 136/255, 122/255, 1
+		cursor_width : dp(2)
+		
+		
+	MDFloatLayout:
+		id : emoji_btn
+		size_hint : None, None
+		size : dp(30), dp(30)
+		top : profile_photo_add.y - dp(50)
+		pos_hint : {"right":1}
+		MDIconButton:
+			icon : "sticker-emoji"
+			pos_hint : {"center_x":0.1, "center_y":0.5}
+			
+			
+	MDRaisedButton:
+		text : "NEXT"
+		md_bg_color : 32/255, 198/255, 90/255, 1
+		y : 0 + dp(50)
+		pos_hint :{"center_x":0.5}
+		on_release:
+			root.change_screen()

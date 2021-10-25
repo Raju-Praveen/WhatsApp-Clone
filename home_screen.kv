@@ -1,0 +1,176 @@
+#:import Window kivy.core.window.Window
+#:import dp kivy.metrics.dp
+
+<HomeScreen>
+	md_bg_color : 1, 1, 1, 1
+	id : home_screen
+	
+	MDFloatLayout:
+		id : whatsapp_toolbar
+		size_hint : None, None
+		size : Window.width, dp(50)
+		top : Window.height
+		md_bg_color : 7/255, 94/255, 85/255, 1
+		MDLabel:
+			text : "WhatsApp"
+			bold : True
+			font_style : "H6"
+			color : 1, 1, 1, 1
+			halign : "left"
+			x : 0 + dp(10)
+			pos_hint : {"center_y":0.5}
+		MDIconButton:
+			id : dots_vertical
+			icon : "dots-vertical"
+			pos_hint : {"right": 1, "center_y":0.5}
+			theme_text_color : "Custom"
+			text_color : 1, 1, 1, 1
+		MDIconButton:
+			icon : "search-web"
+			right : Window.width - dots_vertical.width
+			pos_hint : {"center_y":0.5}
+			theme_text_color : "Custom"
+			text_color : 1, 1, 1, 1
+			
+	MDFloatLayout:
+		id : tab_container
+		size_hint : None, None
+		size : Window.width, dp(50)
+		top : whatsapp_toolbar.y
+		md_bg_color : 7/255, 94/255, 85/255, 1
+		MDBoxLayout:
+			size_hint : None, None
+			size : Window.width, dp(50)
+			x : 0 + dp(1)
+			pos_hint : {"center_y":0.5}
+			orientation : "horizontal"
+			MDIconButton:
+				id : camera_btn
+				icon : "camera"
+				pos_hint : {"center_y":0.3}
+				size_hint_x : 0.25
+				theme_text_color : "Custom"
+				text_color : 0/255, 136/255, 122/255, 1
+				on_release:
+					root.change_active_tab(0, 0.25)
+					self.text_color = (1, 1, 1, 1)
+					tabs_chats_btn.text_color = (0/255, 136/255, 122/255, 1)
+					tabs_status_btn.text_color = (0/255, 136/255, 122/255, 1)
+					tabs_calls_btn.text_color = (0/255, 136/255, 122/255, 1)
+			MDFlatButton:
+				id : tabs_chats_btn
+				text : "CHATS"
+				size_hint_x : 0.25
+				theme_text_color : "Custom"
+				text_color : 1, 1, 1, 1
+				on_release:
+					root.change_active_tab(0.25, 0.5)
+					self.text_color = (1, 1, 1, 1)
+					camera_btn.text_color = (0/255, 136/255, 122/255, 1)
+					tabs_status_btn.text_color = (0/255, 136/255, 122/255, 1)
+					tabs_calls_btn.text_color = (0/255, 136/255, 122/255, 1)
+			MDFlatButton:
+				id : tabs_status_btn
+				text : "STATUS"
+				size_hint_x : 0.25
+				theme_text_color : "Custom"
+				text_color : 0/255, 136/255, 122/255, 1
+				on_release:
+					root.change_active_tab(0.5, 0.75)
+					self.text_color = (1, 1, 1, 1)
+					tabs_chats_btn.text_color = (0/255, 136/255, 122/255, 1)
+					camera_btn.text_color = (0/255, 136/255, 122/255, 1)
+					tabs_calls_btn.text_color = (0/255, 136/255, 122/255, 1)
+			MDFlatButton:
+				id : tabs_calls_btn
+				text : "CALLS"
+				size_hint_x : 0.25
+				theme_text_color : "Custom"
+				text_color : 0/255, 136/255, 122/255, 1
+				on_release:
+					root.change_active_tab(0.75, 1)
+					self.text_color = (1, 1, 1, 1)
+					tabs_chats_btn.text_color = (0/255, 136/255, 122/255, 1)
+					tabs_status_btn.text_color = (0/255, 136/255, 122/255, 1)
+					camera_btn.text_color = (0/255, 136/255, 122/255, 1)
+				
+	MDLabel:
+		id : active_tab_bar
+		text : ""
+		start_index : 0.25
+		end_index : 0.5
+		start : Window.width * self.start_index
+		end : Window.width * self.end_index
+		pos_hint : {"center_y":0.5}
+		canvas:
+			Color:
+				rgba : 1, 1, 1, 1
+			Line:
+				points : [self.start, int(Window.height - dp(99)), self.end, int(Window.height - dp(99))]
+				width : 4
+				
+	ChatBox:
+		id : chatbox
+		start : 0
+		md_bg_color : 1, 1, 1, 0.5
+		size_hint : None, None
+		size : Window.width, Window.height - dp(100)
+		right : 720
+		top : tab_container.y - dp(5)
+		Sliding:
+			direction : "right"
+			ignore_perpendicular_swipes : True
+			ChatsList:
+				id : chats_carousel
+			ChatsList:
+				id : status_carousel
+			ChatsList:
+				id : calls_carousel
+			
+	MDFloatingActionButton:
+		icon : "android-messages"
+		md_bg_color : 32/255, 198/255, 90/255, 1
+		theme_text_color : "Custom"
+		text_color : 1, 1, 1, 1
+		right : Window.width - dp(20)
+		y : 0 + dp(20)
+			
+
+<CustomChat>:
+	size_hint : None, None
+	size : Window.width- 20, dp(76)
+	md_bg_color : 1, 1, 1, 1
+	ProfilePicture:
+		id : profile_picture
+		size_hint : None, None
+		size : dp(50), dp(50)
+		pos_hint : {"center_y":0.5}
+		x : 0 + dp(16)
+		colors : (1, 1, 1, 1)
+		canvas:
+			Color:
+				rgba : self.colors
+			Ellipse:
+				size : dp(50), dp(50)
+				pos : self.pos
+				source : "125503.png"
+				
+	NameMessage:
+		id : name_message
+		size_hint : None, None
+		size : Window.width - dp(50) - 40, dp(50)
+		pos_hint : {"center_y":0.5}
+		x : profile_picture.right + dp(5)
+		md_bg_color : 1, 1, 1, 1
+		orientation : "vertical"
+		padding : 16, 0, 0, 0
+		name : self.name
+		MDLabel:
+			text : "{0} King".format(name_message.name)
+			bold : True
+			color : 0, 0, 0, 1
+			pos_hint : {"x":0, "center_y":0.5}
+		MDLabel:
+			text : "How are you?"
+			color : 0.5, 0.5, 0.5, 1
+			pos_hint : {"x":0, "center_y":0.5}
